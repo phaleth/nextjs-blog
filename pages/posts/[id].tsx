@@ -3,12 +3,15 @@ import { getAllPostIds, getPostData } from '../../lib/posts';
 import Head from 'next/head';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
+import { GetStaticProps, GetStaticPaths } from 'next';
 
-export const config = {
+export const config: {
+  unstable_runtimeJS: boolean;
+} = {
   unstable_runtimeJS: false,
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async (): Promise<any> => {
   const paths = getAllPostIds();
   return {
     paths,
@@ -16,8 +19,8 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }) => {
-  const postData = await getPostData(params.id);
+export const getStaticProps: GetStaticProps = async ({ params }): Promise<any> => {
+  const postData = await getPostData(params.id as string);
   return {
     props: {
       postData,
@@ -25,7 +28,13 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-export default ({ postData }) => {
+export default ({ postData }: {
+  postData: {
+    title: string
+    date: string
+    contentHtml: string
+  }
+}): JSX.Element => {
   return (
     <Layout>
       <Head>

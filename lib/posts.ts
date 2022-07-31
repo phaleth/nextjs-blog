@@ -18,8 +18,7 @@ export const getSortedPostsData = () => {
 
     return {
       id,
-
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
   return allPostsData.sort(({ date: a }, { date: b }) => (a < b ? 1 : -1));
@@ -34,7 +33,7 @@ export const getAllPostIds = () => {
   }));
 };
 
-export const getPostData = async id => {
+export const getPostData = async (id: string): Promise<any> => {
   const fullPath = path.join(postsDir, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf-8');
 
@@ -45,6 +44,6 @@ export const getPostData = async id => {
   return {
     id,
     contentHtml: parsedContent.toString(),
-    ...matterResult.data,
+    ...(matterResult.data as { date: string; title: string }),
   };
 };

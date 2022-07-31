@@ -4,12 +4,15 @@ import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
 import Date from '../components/date';
+import { GetStaticProps } from 'next'
 
-export const config = {
+export const config: {
+  unstable_runtimeJS: boolean,
+} = {
   unstable_runtimeJS: false,
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (): Promise<any> => {
   const allPostsData = getSortedPostsData();
   return {
     props: {
@@ -18,7 +21,13 @@ export const getStaticProps = async () => {
   };
 };
 
-export default ({ allPostsData }) => {
+export default ({ allPostsData }: {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
+  }[]
+}): JSX.Element => {
   return (
     <Layout home>
       <Head>
