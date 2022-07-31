@@ -3,6 +3,10 @@ import Head from 'next/head';
 //import Script from 'next/script';
 import Layout from '../../components/layout';
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 export default () => {
   return (
     <Layout>

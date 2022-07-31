@@ -4,6 +4,10 @@ import Head from 'next/head';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 export const getStaticPaths = async () => {
   const paths = getAllPostIds();
   return {
